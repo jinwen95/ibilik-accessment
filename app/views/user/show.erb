@@ -1,0 +1,18 @@
+<h1>User Profile</h1>
+
+Name: <%= @user.name %><br>
+Email: <%= @user.email %><br>
+Description:  <%= @user.description %><br>
+
+<a href="/users/<%= @user.id %>/edit"><button>Edit profile</button></a>
+<form action="/users/<%= @user.id %>" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Delete">
+</form>
+<a href="/users/logout"><button>Logout</button></a>
+
+<ul>
+	<% @user.posts.each do |post| %>
+		<li><a href="/posts/<%= post.id %>"><%= post.title %></a></li>
+	<% end %>
+</ul>

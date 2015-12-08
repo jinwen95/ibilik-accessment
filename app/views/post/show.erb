@@ -1,0 +1,10 @@
+<h1><%= @post.title %></h1>
+by <%= @post.user.name%><br>
+
+<%= @post.body %><br>
+
+<a href="/posts/<%= @post.id %>/edit"><button>Edit post</button></a>
+<form action="/posts/<%= @post.id %>" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="submit" value="Delete">
+</form>
