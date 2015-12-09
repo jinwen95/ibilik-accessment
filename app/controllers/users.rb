@@ -1,5 +1,7 @@
 # User login
 
+
+
 post '/users/login' do
 	user = User.find_by(email: params[:email], password: params[:password])
 	session[:user_id] = user.id
@@ -23,6 +25,7 @@ end
 
 post '/users' do
 	user = User.create(name: params[:name], email: params[:email], password: params[:password])
+	session[:user_id] = user.id
 	redirect "/users/#{user.id}"
 end
 

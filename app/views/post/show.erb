@@ -1,10 +1,39 @@
 <h1><%= @post.title %></h1>
-by <%= @post.user.name%><br>
+by
+<%= @post.user.name%><br>
 
 <%= @post.body %><br>
 
-<a href="/posts/<%= @post.id %>/edit"><button>Edit post</button></a>
+<a href="/posts/<%= @post.id %>/edit">
+  <button>Edit post</button>
+</a>
 <form action="/posts/<%= @post.id %>" method="post">
-	<input type="hidden" name="_method" value="delete">
-	<input type="submit" value="Delete">
+  <input name="_method" type="hidden" value="delete">
+  <input type="submit" value="Delete">
 </form>
+<button onclick="location.href ='/posts/<%= @post.id %>/booking'">Booking</button>
+<button onclick="location.href ='/posts/<%= @post.id %>/comment'">Comment</button>
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+
+</style>
+<h1>Comment
+</h1>
+<table>
+  <% Comment.where(post_id: @post.id).each do |line| %>
+  <tr>
+    <td><%= User.find(line.user_id).name %></td>
+    <td><%= line.comment %></td>
+    <td>
+      <button onclick="location.href ='/posts/<%= line.post_id %>/comment/<%= line.id %>/edit'">Edit</button>
+    </td>
+    <td>
+      <button onclick="location.href ='/posts/<%= line.post_id %>/comment/<%= line.id %>/delete'">Delete</button>
+    </td>
+  </tr>
+  <% end %>
+</table>

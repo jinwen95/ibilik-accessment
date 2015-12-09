@@ -1,0 +1,8 @@
+<h1>Edit Booking</h1>
+
+<form action="/posts/<%= @booking.post_id %>/booking/<%= @booking.id %>/edit" method="POST">
+	<input type="hidden" name="_method" value="patch">
+	<label>Message: </label>
+	<textarea name="message"><%= @booking.message %></textarea><br>
+	<input type="submit" value="Edit Booking">
+</form>

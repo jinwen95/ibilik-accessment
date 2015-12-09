@@ -9,10 +9,47 @@ Description:  <%= @user.description %><br>
 	<input type="hidden" name="_method" value="delete">
 	<input type="submit" value="Delete">
 </form>
+
+<a href="/posts/new"><button>Create Property</button></a>
+
 <a href="/users/logout"><button>Logout</button></a>
 
+<h1>My Property List</h1>
 <ul>
 	<% @user.posts.each do |post| %>
-		<li><a href="/posts/<%= post.id %>"><%= post.title %></a></li>
+		<li><a href="/posts/<%=post.id%>"><%=post.title%></a></li>
 	<% end %>
 </ul>
+
+
+<h1>Other Property List</h1>
+<ul>
+	<% Post.where.not(user_id: session[:user_id]).each do |post| %>
+		<li><a href="/posts/<%=post.id%>"><%=post.title%></a></li>
+	<% end %>
+</ul>
+
+<style>
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+
+</style>
+<h1>Booking
+</h1>
+<table>
+  <% Booking.where(user_id: session[:user_id]).each do |line| %>
+  <tr>
+    <td><%= Post.find(line.user_id).title %></td>
+    <td><%= line.message %></td>
+    <td>
+      <button onclick="location.href ='/posts/<%= line.post_id %>/booking/<%= line.id %>/edit'">Edit</button>
+    </td>
+    <td>
+      <button onclick="location.href ='/posts/<%= line.post_id %>/booking/<%= line.id %>/delete'">Delete</button>
+    </td>
+  </tr>
+  <% end %>
+</table>
